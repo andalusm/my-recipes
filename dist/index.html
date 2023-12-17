@@ -9,8 +9,6 @@
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script src="https://kit.fontawesome.com/80f5cec321.js" crossorigin="anonymous"></script>
     <title>My Recipes</title>
-
-
 </head>
 
 <body>
@@ -19,13 +17,15 @@
         <button onclick=searchIngredient()>Search ingredient <i class="fa-solid fa-magnifying-glass"></i></button>
 
     </div>
-    <input type="checkbox" title="Dairy Free" id="dairy" name="dairy">
-    <label for="dairy">Dairy Free</label><br>
-    <input type="checkbox" title="Gluten Free" id="gluten" name="gluten">
-    <label for="gluten">Gluten Free</label><br>
-    <input type="checkbox" title="Vegeterian" id="vegeterian" name="vegeterian">
-
-    <label for="vegeterian">Vegeterian </label><br>
+    <div class="options">
+        <input type="checkbox" title="Dairy Free" id="dairy" name="dairy">
+        <label for="dairy">Dairy Free</label><br>
+        <input type="checkbox" title="Gluten Free" id="gluten" name="gluten">
+        <label for="gluten">Gluten Free</label><br>
+        <input type="checkbox" title="Vegeterian" id="vegeterian" name="vegeterian">
+        <label for="vegeterian">Vegeterian </label><br>
+    </div>
+    
     <div id="recipes-container"></div>
 
     <script id="recipes-template" type="text/x-handlebars-template">
@@ -38,9 +38,6 @@
                     {{#if dairy}}<i title="Has dairy" class="fa-solid fa-bottle-droplet"></i> {{/if}}
                     </div>
                 </div>
-                
-
-                
                 <img src="{{thumbnail}}" alt="Picture of {{title}}" title="Picture of {{title}}">
                     Ingredients:
                     <ul>
@@ -48,9 +45,6 @@
                         <li>{{this}}</li>
                     {{/each}}
                 </ul>
-                
-
-                
             </div>
         {{/each}}
     </script>

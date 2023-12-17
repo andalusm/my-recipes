@@ -8,7 +8,8 @@ body {
 
 #search-recipe {
     display: grid;
-    margin-bottom: 1vmax;
+    grid-template-columns: 3fr 1fr;
+    margin-bottom: 5px;
 }
 
 #recipes-container {
@@ -68,4 +69,8 @@ ul{
 
 .fa-bottle-droplet{
     color: white;
+}
+
+.options{
+    margin-bottom: 10px;
 }
