@@ -4,39 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:,">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
-    <title>Document</title>
+    <script src="https://kit.fontawesome.com/80f5cec321.js" crossorigin="anonymous"></script>
+    <title>My Recipes</title>
 
-    
+
 </head>
 
 <body>
     <div id="search-recipe">
         <input type="text" id="ingredient" placeholder="Search Ingredient" />
-        <button onclick=searchIngredient()>Search ingredient</button>
-        
+        <button onclick=searchIngredient()>Search ingredient <i class="fa-solid fa-magnifying-glass"></i></button>
+
     </div>
     <input type="checkbox" title="Dairy Free" id="dairy" name="dairy">
-        <label for="dairy">Dairy Free</label><br>
-        <input type="checkbox" title="Gluten Free" id="gluten" name="gluten">
-        <label for="gluten">Gluten Free</label><br>
-        <input type="checkbox" title="Vegeterian" id="vegeterian" name="vegeterian">
-        <label for="vegeterian">Vegeterian</label><br>
+    <label for="dairy">Dairy Free</label><br>
+    <input type="checkbox" title="Gluten Free" id="gluten" name="gluten">
+    <label for="gluten">Gluten Free</label><br>
+    <input type="checkbox" title="Vegeterian" id="vegeterian" name="vegeterian">
+
+    <label for="vegeterian">Vegeterian </label><br>
     <div id="recipes-container"></div>
 
     <script id="recipes-template" type="text/x-handlebars-template">
         {{#each recipes}}
             <div class="recipe" data-id="{{idMeal}}">
-                <a class="title" href="{{href}}">{{title}} </a>
+                <div class="titlemoji">
+                    <a class="title" href="{{href}}">{{title}} </a> 
+                    <div class="emoji"> {{#if gluten}}<i title="Has Gluten" class="fa-solid fa-wheat-awn"></i> {{/if}}
+                    {{#if vegeterian}}<i title="Vegeterian" class="fa-solid fa-leaf"></i> {{/if}}
+                    {{#if dairy}}<i title="Has dairy" class="fa-solid fa-bottle-droplet"></i> {{/if}}
+                    </div>
+                </div>
+                
+
                 
                 <img src="{{thumbnail}}" alt="Picture of {{title}}" title="Picture of {{title}}">
-                
-                
                     Ingredients:
-                    <ul >
-
-                    
+                    <ul>
                     {{#each ingredients}}
                         <li>{{this}}</li>
                     {{/each}}

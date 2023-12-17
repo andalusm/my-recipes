@@ -6,9 +6,10 @@ const searchIngredient = function(){
     const dairy = $('#dairy').prop('checked');
     const gluten = $('#gluten').prop('checked');
     const vegeterian = $('#vegeterian').prop('checked');
+    if(ingredient){
     $.get(`/recipes/${ingredient}?dairy=${dairy}&gluten=${gluten}&vegeterian=${vegeterian}`, function (response) {
         renderer.renderRecipes(response)        
-    })
+    })}
 
 }
 
