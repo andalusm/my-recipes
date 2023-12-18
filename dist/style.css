@@ -23,13 +23,21 @@ body {
     display: grid;
     align-items: center;
     grid-row-gap: 10px;
-    
-    
     padding: 1vmax;
     border-radius: 4px;
     box-shadow: 1px 1px 3px black;
     background-color: #FFDA79;
 
+}
+.no-result{
+    align-content: center;
+    display: grid;
+    align-items: center;
+    grid-row-gap: 10px;
+    padding: 1vmax;
+    border-radius: 4px;
+    box-shadow: 1px 1px 3px black;
+    background-color: #FFDA79;
 }
 
 a {

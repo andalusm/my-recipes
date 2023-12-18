@@ -25,10 +25,11 @@
         <input type="checkbox" title="Vegeterian" id="vegeterian" name="vegeterian">
         <label for="vegeterian">Vegeterian </label><br>
     </div>
-    
+
     <div id="recipes-container"></div>
 
     <script id="recipes-template" type="text/x-handlebars-template">
+    {{#if recipes}}
         {{#each recipes}}
             <div class="recipe" data-id="{{idMeal}}">
                 <div class="titlemoji">
@@ -47,6 +48,11 @@
                 </ul>
             </div>
         {{/each}}
+    {{else}}
+    <div class="no-result">
+        <h2>No results found</h2>
+    </div>
+    {{/if}}
     </script>
 
     <script src="./jquery/dist/jquery.js"></script>
