@@ -2,13 +2,13 @@
 const renderer = new Renderer()
 
 const searchIngredient = function(){
-    const ingredient = $("#ingredient").val()
-    // if(!ingredient){
-    //     return
-    // }
-    const dairy = $('#dairy').prop('checked');
-    const gluten = $('#gluten').prop('checked');
-    const vegeterian = $('#vegeterian').prop('checked');
+    const ingredient = ingredientInput.val()
+    if(!ingredient){
+        return
+    }
+    const dairy = dairyCheckBox.prop('checked');
+    const gluten = glutenCheckBox.prop('checked');
+    const vegeterian = vegeterianCheckBox.prop('checked');
     $.get(`/recipes/${ingredient}?dairy=${dairy}&gluten=${gluten}&vegeterian=${vegeterian}`, function (recipes) {
         console.log(recipes)
         renderer.renderRecipes(recipes)        
