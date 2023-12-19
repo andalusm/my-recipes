@@ -12,7 +12,7 @@ body {
     margin-bottom: 5px;
 }
 
-#recipes-container {
+.recipes {
     display: grid;
     grid-gap: 1vmax;
     grid-template-columns: repeat(3, 1fr);
@@ -43,6 +43,13 @@ body {
 
 a {
     display: block;
+    font-size: 20px;
+    text-decoration-line: none;
+}
+
+a:hover{
+    text-decoration-line: underline;
+    color: #F9443D;
 }
 
 img {
@@ -90,8 +97,8 @@ li {
 }
 
 .search {
-    background: #E6003D;
-    border: 1px solid #E6003D;
+    background: #F9443D;
+    border: 1px solid #F9443D;
     border-radius: 6px;
     box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
     box-sizing: border-box;
@@ -118,20 +125,24 @@ li {
 .search:active {
     background-color: initial;
     background-position: 0 0;
-    color: #E6003D;
+    color: #F9443D;
 }
 
 .search:active {
     opacity: .5;
 }
 
+h4{
+    color: #F9443D;;
+}
+
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
     .input input[type=checkbox] {
-        --active: #E6003D;
+        --active: #F9443D;
         --active-inner: #fff;
         --focus: 2px rgba(254, 39, 39, 0.3);
         --border: #BBC1E1;
-        --border-hover: #E6003D;
+        --border-hover: #F9443D;
         --background: #fff;
         --disabled: #F6F8FF;
         --disabled-inner: #E1E6F9;
@@ -236,3 +247,4 @@ li {
 .input *:after {
     box-sizing: inherit;
 }
+

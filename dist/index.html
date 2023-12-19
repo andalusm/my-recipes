@@ -8,12 +8,13 @@
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script src="https://kit.fontawesome.com/80f5cec321.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="image.png">
     <title>My Recipes</title>
 </head>
 
 <body>
     <div id="search-recipe">
-        <input type="text" id="ingredient" placeholder="Search Ingredient" />
+        <input type="text" id="ingredient" placeholder="Search Ingredient" autofocus/>
         <button class="search" onclick=searchIngredient()>Search ingredient <i
                 class="fa-solid fa-magnifying-glass"></i></button>
 
@@ -34,10 +35,14 @@
 
     <script id="recipes-template" type="text/x-handlebars-template">
     {{#if recipes}}
+    <h4>Found {{recipes.length}} recipe/s</h4>
+    <div class="recipes">
+
+    
         {{#each recipes}}
             <div class="recipe" data-id="{{idMeal}}">
                 <div class="titlemoji">
-                    <a class="title" href="{{href}}">{{title}} </a> 
+                    <a class="title" href="{{href}}">{{title}} </a>
                     <div class="emoji"> {{#if gluten}}<i title="Has Gluten" class="fa-solid fa-wheat-awn"></i> {{/if}}
                     {{#if vegeterian}}<i title="Vegeterian" class="fa-solid fa-leaf"></i> {{/if}}
                     {{#if dairy}}<i title="Has dairy" class="fa-solid fa-bottle-droplet"></i> {{/if}}
@@ -52,9 +57,10 @@
                 </ul>
             </div>
         {{/each}}
+    </div>
     {{else}}
     <div class="no-result">
-        <h2>No results found</h2>
+        <h3>No recipe found</h3>
     </div>
     {{/if}}
     </script>
