@@ -5,7 +5,7 @@ const renderer = new Renderer()
 const searchIngredient = function(){
     const ingredient = ingredientInput.val()
     if(!ingredient){
-        return
+        alert("Please write an ingredient.")
     }
     const dairy = dairyCheckBox.prop('checked');
     const gluten = glutenCheckBox.prop('checked');

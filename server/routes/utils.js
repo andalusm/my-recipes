@@ -1,5 +1,18 @@
 const info = require('./info')
-class Recipes {
+const errors = require('./errors')
+class RecipesController {
+    checkFiltersExist(vegeterian, dairy, gluten){
+        if(!vegeterian || !dairy || !gluten){
+            throw new errors.MissingParametersError()
+        }
+    }
+    checkIngredient(ingredient){
+        if(!ingredient.match(/^[a-z]+$/i)){
+            throw new errors.InvalidIngredientError()
+        }
+    }
+
+
     #capitalizeFirstLetter(str) {
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     }
@@ -59,4 +72,4 @@ class Recipes {
 }
 
 
-module.exports={Recipes}
+module.exports={RecipesController: RecipesController}
