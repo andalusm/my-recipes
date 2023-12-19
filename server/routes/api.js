@@ -11,9 +11,6 @@ const router = express.Router()
 const IngredientFinder = new ingredient.Ingredient()
 const RecipesController = new utils.RecipesController()
 
-// router.get('/', function (req, res) {
-//     res.end()
-// })
 router.get('/recipes/:ingredient', function (req, res) {
     const ingredient = req.params.ingredient.toLowerCase()
     const dairy = req.query.dairyFree
@@ -22,7 +19,6 @@ router.get('/recipes/:ingredient', function (req, res) {
     try {
         RecipesController.checkFiltersExist(vegeterian,dairy,gluten)
         RecipesController.checkIngredient(ingredient)
-
     } catch (error) {
         if (error instanceof errors.InvalidIngredientError) {
             res.status(405).send({ "Error": "The ingredient has a number or a symbol in it." })
@@ -32,7 +28,6 @@ router.get('/recipes/:ingredient', function (req, res) {
             res.status(402).send({ "Error": "One or more of the optional parameters is missing." })
             return;
         }
-
     }
     try {
         IngredientFinder.getRecipe(ingredient, dairy, gluten, vegeterian)
