@@ -11,22 +11,21 @@ const router = express.Router()
 const IngredientFinder = new ingredient.Ingredient()
 const RecipesController = new utils.RecipesController()
 
-router.get('/recipes/:ingredient', function (req, res) {
+router.get('/:ingredient', function (req, res) {
     const ingredient = req.params.ingredient.toLowerCase()
     const dairy = req.query.dairyFree
     const gluten = req.query.glutenFree
     const vegeterian = req.query.vegeterian
     try {
-        RecipesController.checkFiltersExist(vegeterian,dairy,gluten)
+        
         RecipesController.checkIngredient(ingredient)
+        RecipesController.checkFiltersExist(vegeterian, dairy, gluten)
     } catch (error) {
         if (error instanceof errors.InvalidIngredientError) {
-            res.status(405).send({ "Error": "The ingredient has a number or a symbol in it." })
-            return;
+            return res.status(405).send({ "Error": "The ingredient has a number or a symbol in it." })
         }
         if (error instanceof errors.MissingParametersError) {
-            res.status(402).send({ "Error": "One or more of the optional parameters is missing." })
-            return;
+            return res.status(402).send({ "Error": "One or more of the optional parameters is missing." })
         }
     }
     try {
@@ -34,12 +33,12 @@ router.get('/recipes/:ingredient', function (req, res) {
             .then(function (response) {
                 const recipes = response.data.results
                 const filteredRecipes = RecipesController.filterRecipes(recipes, info.FILTERED_LIST, IngredientFinder.sensitivity)
-                res.status(201).json({ recipes: filteredRecipes })
-                return;
+                return res.status(201).json({ recipes: filteredRecipes })
+
             })
     } catch (error) {
-        res.status(404).end()
-        return
+        return res.status(404).end()
+
     }
 
 })
