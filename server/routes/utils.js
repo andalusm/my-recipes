@@ -1,5 +1,6 @@
 const info = require('./info')
 const errors = require('./errors')
+const { faker } = require('@faker-js/faker');
 class RecipesController {
     checkFiltersExist(vegeterian, dairy, gluten){
         if(!vegeterian || !dairy || !gluten){
@@ -45,6 +46,26 @@ class RecipesController {
         return capitalizeWords.join(' ')
     }
 
+    #addFeatures(newRecipe, recipe){
+        this.#addSensitivities(newRecipe,recipe)
+        this.#addChefName(newRecipe)
+        this.#addRating(newRecipe)
+
+    }
+    #addSensitivities(newRecipe, recipe){
+        newRecipe['vegeterian'] = this.#vegeterian(recipe.strCategory)
+        newRecipe['gluten'] = this.#hasGluten(recipe.ingredients)
+        newRecipe['dairy'] = this.#hasDairy(recipe.ingredients)
+    }
+
+    #addChefName(newRecipe){
+        newRecipe['chef'] = faker.person.fullName()
+    }
+    #addRating(newRecipe){
+        const rating = (Math.random() * 4 + 1).toFixed(1) 
+        newRecipe['rating'] = rating
+    }
+
 
     #filterRecipe(recipe, filterOptions) {
         const newRecipe = {}
@@ -57,9 +78,7 @@ class RecipesController {
             else
                 newRecipe[fo] = recipe[fo]
         })
-        newRecipe['vegeterian'] = this.#vegeterian(recipe.strCategory)
-        newRecipe['gluten'] = this.#hasGluten(recipe.ingredients)
-        newRecipe['dairy'] = this.#hasDairy(recipe.ingredients)
+        this.#addFeatures(newRecipe,recipe)
         return newRecipe
     }
 

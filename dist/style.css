@@ -47,7 +47,7 @@ a {
     text-decoration-line: none;
 }
 
-a:hover{
+a:hover {
     text-decoration-line: underline;
     color: #F9443D;
 }
@@ -132,8 +132,9 @@ li {
     opacity: .5;
 }
 
-h4{
-    color: #F9443D;;
+h4 {
+    color: #F9443D;
+    ;
 }
 
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
@@ -248,3 +249,25 @@ h4{
     box-sizing: inherit;
 }
 
+:root {
+    --star-size: 20px;
+    --star-color: #F5F5F5;
+    --star-background: #fc0;
+}
+
+.Stars {
+    --percent: calc(var(--rating) / 5 * 100%);
+
+    display: inline-block;
+    font-size: var(--star-size);
+    font-family: Times;
+    line-height: 1;
+
+    &::before {
+        content: '★★★★★';
+        letter-spacing: 3px;
+        background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}

@@ -14,7 +14,7 @@
 
 <body>
     <div id="search-recipe">
-        <input type="text" id="ingredient" placeholder="Search Ingredient" autofocus/>
+        <input type="text" id="ingredient" placeholder="Search Ingredient" autofocus />
         <button class="search" onclick=searchIngredient()>Search ingredient <i
                 class="fa-solid fa-magnifying-glass"></i></button>
 
@@ -42,19 +42,23 @@
         {{#each recipes}}
             <div class="recipe" data-id="{{idMeal}}">
                 <div class="titlemoji">
-                    <a class="title" href="{{href}}">{{title}} </a>
+                    <b><a class="title" href="{{href}}">{{title}} </a></b>
                     <div class="emoji"> {{#if gluten}}<i title="Has Gluten" class="fa-solid fa-wheat-awn"></i> {{/if}}
                     {{#if vegeterian}}<i title="Vegeterian" class="fa-solid fa-leaf"></i> {{/if}}
                     {{#if dairy}}<i title="Has dairy" class="fa-solid fa-bottle-droplet"></i> {{/if}}
                     </div>
                 </div>
                 <img src="{{thumbnail}}" alt="Picture of {{title}}" title="Picture of {{title}}">
-                    Ingredients:
+                    <b>Ingredients:</b>
                     <ul>
                     {{#each ingredients}}
                         <li>{{this}}</li>
                     {{/each}}
                 </ul>
+                <div><b>Chef name:</b> {{chef}}</div>
+            
+
+                <div><b>Rating:</b> <div class="Stars" style="--rating: {{rating}};" title="Rating of this recipe is {{rating}} out of 5."></div></div>
             </div>
         {{/each}}
     </div>
