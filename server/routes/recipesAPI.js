@@ -37,7 +37,7 @@ router.get('/:ingredient', function (req, res) {
 
             })
     } catch (error) {
-        return res.status(404).end()
+        return res.status(500).send({ "Error": "Api server is disconnected." })
 
     }
 
