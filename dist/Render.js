@@ -2,9 +2,7 @@ class Renderer {
     
     constructor(){
         this.recipeContainer = $("#recipes-container");
-        this.recipeTemplate = $("#recipes-template")
-
-
+        this.recipeTemplate = $("#recipes-template");
     }
     render(container, handleTemplate, attribute){
         container.empty()

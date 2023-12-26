@@ -25,13 +25,11 @@ class RecipesController {
         return !info.MEAT_INGREDIENTS.includes(category.toLowerCase())
     }
     #filterSensitivities(recipe, sensitivity) {
-        for (const sen of sensitivity) {
+        for(const sen of sensitivity) {
             if((sen === 'vegeterian' && !this.#vegeterian(recipe.strCategory)) || (sen === 'gluten' && this.#hasSensitivity(recipe.ingredients, info.GLUTEN_INGREDIENTS )) || (sen === 'dairy' && this.#hasSensitivity(recipe.ingredients, info.DAIRY_INGREDIENTS)))
                 return false
         }
         return true
-        // return !sensitivity.every(sen => ((sen === 'vegeterian' && !this.#vegeterian(recipe.strCategory)) || (sen === 'gluten' && this.#hasGluten(recipe.ingredients)) || (sen === 'dairy' && this.#hasDairy(recipe.ingredients))))
-
     }
     #removeDuplicates(ingredients) {
         return Array.from(new Set(ingredients))
@@ -66,14 +64,13 @@ class RecipesController {
 
     #filterRecipe(recipe, filterOptions) {
         const newRecipe = {}
-        filterOptions.forEach(fo => {
-            if (recipe[fo] instanceof Array) {
-                newRecipe[fo] = this.#removeDuplicates(recipe[fo])
-                newRecipe[fo] = newRecipe[fo].map(e => this.#capitalizeFirstLetterInSentence(e))
+        filterOptions.forEach(filterOption => {
+            if (recipe[filterOption] instanceof Array) {
+                newRecipe[filterOption] = this.#removeDuplicates(recipe[filterOption])
+                newRecipe[filterOption] = newRecipe[filterOption].map(e => this.#capitalizeFirstLetterInSentence(e))
             }
-
             else
-                newRecipe[fo] = recipe[fo]
+                newRecipe[filterOption] = recipe[filterOption]
         })
         this.#addFeatures(newRecipe,recipe)
         return newRecipe

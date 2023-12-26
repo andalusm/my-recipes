@@ -8,19 +8,20 @@ class Ingredient {
     }
     
     getRecipe(ingredient,dairy,gluten,vegeterian) {
-        this.fillSensitivity(dairy,gluten,vegeterian)
+        this.#fillSensitivity(dairy,gluten,vegeterian)
         const find_ingredient_url = info.INGREDIENT_URL + ingredient
         return axios.get(find_ingredient_url)
             
     }
-    fillSensitivity(dairy,gluten,vegeterian){
+    #addSensitivity(sensitivity, sensitivityName){
+        if (sensitivity === 'true')
+            this.sensitivity.push(sensitivityName)
+    }
+    #fillSensitivity(dairy,gluten,vegeterian){
         this.sensitivity = []
-        if (gluten === 'true')
-            this.sensitivity.push('gluten')
-        if (dairy === 'true')
-        this.sensitivity.push('dairy')
-        if (vegeterian === 'true')
-        this.sensitivity.push('vegeterian')
+        this.#addSensitivity(gluten, 'gluten')
+        this.#addSensitivity(dairy, 'dairy')
+        this.#addSensitivity(vegeterian, 'vegeterian')
     }
 }
 
