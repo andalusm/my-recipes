@@ -18,18 +18,15 @@ class RecipesController {
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     }
 
-    #hasDairy(ingredients) {
-        return ingredients.some(ing => info.DAIRY_INGREDIENTS.includes(ing.toLowerCase()))
-    }
-    #hasGluten(ingredients) {
-        return ingredients.some(ing => info.GLUTEN_INGREDIENTS.includes(ing.toLowerCase()))
+    #hasSensitivity(ingredients, sensitivity_ingredients) {
+        return ingredients.some(ing => sensitivity_ingredients.includes(ing.toLowerCase()))
     }
     #vegeterian(category) {
         return !info.MEAT_INGREDIENTS.includes(category.toLowerCase())
     }
     #filterSensitivities(recipe, sensitivity) {
         for (const sen of sensitivity) {
-            if((sen === 'vegeterian' && !this.#vegeterian(recipe.strCategory)) || (sen === 'gluten' && this.#hasGluten(recipe.ingredients)) || (sen === 'dairy' && this.#hasDairy(recipe.ingredients)))
+            if((sen === 'vegeterian' && !this.#vegeterian(recipe.strCategory)) || (sen === 'gluten' && this.#hasSensitivity(recipe.ingredients, info.GLUTEN_INGREDIENTS )) || (sen === 'dairy' && this.#hasSensitivity(recipe.ingredients, info.DAIRY_INGREDIENTS)))
                 return false
         }
         return true
@@ -54,8 +51,8 @@ class RecipesController {
     }
     #addSensitivities(newRecipe, recipe){
         newRecipe['vegeterian'] = this.#vegeterian(recipe.strCategory)
-        newRecipe['gluten'] = this.#hasGluten(recipe.ingredients)
-        newRecipe['dairy'] = this.#hasDairy(recipe.ingredients)
+        newRecipe['gluten'] = this.#hasSensitivity(recipe.ingredients, info.GLUTEN_INGREDIENTS)
+        newRecipe['dairy'] = this.#hasSensitivity(recipe.ingredients, info.DAIRY_INGREDIENTS)
     }
 
     #addChefName(newRecipe){
