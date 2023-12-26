@@ -24,6 +24,18 @@ class RecipesController {
     #vegeterian(category) {
         return !info.MEAT_INGREDIENTS.includes(category.toLowerCase())
     }
+    #getResturants(id){
+        const resturants = []
+        for (const i of Object.keys(info.RESTURANTS)){
+            if(info.RESTURANTS[i].includes(id)){
+                resturants.push(i)
+            }
+        }
+        return resturants
+    }
+    #turnResturantsToString(resturants){
+        return resturants.toString()
+    }
     #filterSensitivities(recipe, sensitivity) {
         for(const sen of sensitivity) {
             if((sen === 'vegeterian' && !this.#vegeterian(recipe.strCategory)) || (sen === 'gluten' && this.#hasSensitivity(recipe.ingredients, info.GLUTEN_INGREDIENTS )) || (sen === 'dairy' && this.#hasSensitivity(recipe.ingredients, info.DAIRY_INGREDIENTS)))
@@ -45,6 +57,19 @@ class RecipesController {
         this.#addSensitivities(newRecipe,recipe)
         this.#addChefName(newRecipe)
         this.#addRating(newRecipe)
+        this.#addResturants(newRecipe)
+
+    }
+    #addResturants(recipe){
+        const resturants = this.#getResturants(recipe.idMeal)
+        if (resturants.length > 0 )
+        {
+            recipe['resturants'] = this.#turnResturantsToString(resturants)
+        }
+        else
+        {
+            recipe['resturants'] = "No resturants offers this recipe."
+        }
 
     }
     #addSensitivities(newRecipe, recipe){

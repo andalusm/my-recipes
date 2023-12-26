@@ -1,6 +1,5 @@
 const renderer = new Renderer()
-const ingredientError = "Please write an ingredient."
-const recipesContainer = $("#recipes-container")
+
 
 const searchIngredient = function () {
     const ingredient = ingredientInput.val()

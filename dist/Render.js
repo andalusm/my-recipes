@@ -8,7 +8,7 @@ class Renderer {
         container.empty()
         const source = handleTemplate.html();
         const template = Handlebars.compile(source);
-        let newHTML = template(attribute);
+        const newHTML = template(attribute);
         container.append(newHTML)
     }
 
