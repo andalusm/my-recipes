@@ -1,8 +1,8 @@
 const ingredient = require('./model/ingredient')
 const express = require('express')
-const utils = require('./utils')
-const config = require('./config')
-const errors = require('./errors')
+const utils = require('./model/utils')
+const config = require('./model/config')
+const errors = require('./model/errors')
 const router = express.Router()
 
 
