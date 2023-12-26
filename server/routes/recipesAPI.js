@@ -1,7 +1,7 @@
 const ingredient = require('./model/ingredient')
 const express = require('express')
 const utils = require('./utils')
-const info = require('./info')
+const config = require('./config')
 const errors = require('./errors')
 const router = express.Router()
 
@@ -32,7 +32,7 @@ router.get('/:ingredient', function (req, res) {
         IngredientFinder.getRecipe(ingredient, dairy, gluten, vegeterian)
             .then(function (response) {
                 const recipes = response.data.results
-                const filteredRecipes = RecipesController.filterRecipes(recipes, info.FILTERED_LIST, IngredientFinder.sensitivity)
+                const filteredRecipes = RecipesController.filterRecipes(recipes, config.FILTERED_LIST, IngredientFinder.sensitivity)
                 return res.status(201).json({ recipes: filteredRecipes })
 
             })

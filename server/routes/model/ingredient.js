@@ -1,5 +1,5 @@
 const axios = require('axios');
-const info = require('../info')
+const config = require('../config')
 
 
 class Ingredient {
@@ -9,7 +9,7 @@ class Ingredient {
     
     getRecipe(ingredient,dairy,gluten,vegeterian) {
         this.#fillSensitivity(dairy,gluten,vegeterian)
-        const find_ingredient_url = info.INGREDIENT_URL + ingredient
+        const find_ingredient_url = config.INGREDIENT_URL + ingredient
         return axios.get(find_ingredient_url)
             
     }

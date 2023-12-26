@@ -1,4 +1,4 @@
-const info = require('./info')
+const config = require('./config')
 const errors = require('./errors')
 const { faker } = require('@faker-js/faker');
 class RecipesController {
@@ -22,12 +22,12 @@ class RecipesController {
         return ingredients.some(ing => sensitivity_ingredients.includes(ing.toLowerCase()))
     }
     #vegeterian(category) {
-        return !info.MEAT_INGREDIENTS.includes(category.toLowerCase())
+        return !config.MEAT_INGREDIENTS.includes(category.toLowerCase())
     }
     #getResturants(id){
         const resturants = []
-        for (const i of Object.keys(info.RESTURANTS)){
-            if(info.RESTURANTS[i].includes(id)){
+        for (const i of Object.keys(config.RESTURANTS)){
+            if(config.RESTURANTS[i].includes(id)){
                 resturants.push(i)
             }
         }
@@ -38,7 +38,7 @@ class RecipesController {
     }
     #filterSensitivities(recipe, sensitivity) {
         for(const sen of sensitivity) {
-            if((sen === 'vegeterian' && !this.#vegeterian(recipe.strCategory)) || (sen === 'gluten' && this.#hasSensitivity(recipe.ingredients, info.GLUTEN_INGREDIENTS )) || (sen === 'dairy' && this.#hasSensitivity(recipe.ingredients, info.DAIRY_INGREDIENTS)))
+            if((sen === 'vegeterian' && !this.#vegeterian(recipe.strCategory)) || (sen === 'gluten' && this.#hasSensitivity(recipe.ingredients, config.GLUTEN_INGREDIENTS )) || (sen === 'dairy' && this.#hasSensitivity(recipe.ingredients, config.DAIRY_INGREDIENTS)))
                 return false
         }
         return true
@@ -74,15 +74,15 @@ class RecipesController {
     }
     #addSensitivities(newRecipe, recipe){
         newRecipe['vegeterian'] = this.#vegeterian(recipe.strCategory)
-        newRecipe['gluten'] = this.#hasSensitivity(recipe.ingredients, info.GLUTEN_INGREDIENTS)
-        newRecipe['dairy'] = this.#hasSensitivity(recipe.ingredients, info.DAIRY_INGREDIENTS)
+        newRecipe['gluten'] = this.#hasSensitivity(recipe.ingredients, config.GLUTEN_INGREDIENTS)
+        newRecipe['dairy'] = this.#hasSensitivity(recipe.ingredients, config.DAIRY_INGREDIENTS)
     }
 
     #addChefName(newRecipe){
         newRecipe['chef'] = faker.person.fullName()
     }
     #addRating(newRecipe){
-        const rating = (Math.random() * 4 + 1).toFixed(1) 
+        const rating = (Math.random() * config.MAX_RATING + config.MIN_RATING).toFixed(1) 
         newRecipe['rating'] = rating
     }
 
