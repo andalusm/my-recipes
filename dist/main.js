@@ -57,4 +57,9 @@ const navigation_prev = function(){
     }
 }
 
+const navigation_to_page= function(page_number){
+    page = page_number
+    renderer.renderRecipes(recipes_page.slice(page*MAX_RECIPES_IN_PAGE,(page+1)*MAX_RECIPES_IN_PAGE),length,page)
+}
+
 

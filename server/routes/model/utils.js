@@ -55,7 +55,7 @@ class RecipesController {
         return capitalizeWords.join(' ')
     }
     #changeImageToGIF(recipe){
-        const giphy_url = "http://api.giphy.com/v1/gifs/search?q=" + recipe['title'] + "Food&api_key=" + APIkeys.API_KEY + "&limit=1"
+        const giphy_url = "http://api.giphy.com/v1/gifs/search?q=" + recipe['title'] + " Food&api_key=" + APIkeys.API_KEY + "&limit=1"
         return axios.get(giphy_url).then((data) => { 
             if(data.data.data[0]){
                 recipe['gif'] = data.data.data[0].images.original.url
