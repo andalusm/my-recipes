@@ -1,6 +1,8 @@
+const { error } = require('jquery');
 const config = require('./config')
 const errors = require('./errors')
 const { faker } = require('@faker-js/faker');
+const axios = require('axios');
 class RecipesController {
     checkFiltersExist(vegeterian, dairy, gluten){
         if(!vegeterian || !dairy || !gluten){
@@ -52,12 +54,31 @@ class RecipesController {
         const capitalizeWords = splitWords.map(word => this.#capitalizeFirstLetter(word))
         return capitalizeWords.join(' ')
     }
+    #changeImageToGIF(recipe){
+        const giphy_url = "http://api.giphy.com/v1/gifs/search?q=" + recipe['title'] + "Food&api_key=" + config.API_KEY + "&limit=1"
+        return axios.get(giphy_url).then((data) => { 
+            if(data.data.data[0]){
+                recipe['gif'] = data.data.data[0].images.original.url
+            }
+            else{
+                recipe['gif'] = recipe["thumbnail"]
+            }
+            return recipe
+            
+        })
+        .catch((error)=>{
+            recipe['gif'] = recipe["thumbnail"]
+            return recipe
+        })
+
+    }
 
     #addFeatures(newRecipe, recipe){
         this.#addSensitivities(newRecipe,recipe)
         this.#addChefName(newRecipe)
         this.#addRating(newRecipe)
         this.#addResturants(newRecipe)
+        return this.#changeImageToGIF(newRecipe)
 
     }
     #addResturants(recipe){
@@ -87,8 +108,8 @@ class RecipesController {
     }
 
 
-    #filterRecipe(recipe, filterOptions) {
-        const newRecipe = {}
+    async #filterRecipe(recipe, filterOptions) {
+        let newRecipe = {}
         filterOptions.forEach(filterOption => {
             if (recipe[filterOption] instanceof Array) {
                 newRecipe[filterOption] = this.#removeDuplicates(recipe[filterOption])
@@ -97,14 +118,18 @@ class RecipesController {
             else
                 newRecipe[filterOption] = recipe[filterOption]
         })
-        this.#addFeatures(newRecipe,recipe)
-        return newRecipe
+        return await this.#addFeatures(newRecipe,recipe).then((recipe)=>{
+            return newRecipe
+        })
+        
+        
     }
 
-    filterRecipes(recipes, filterOptions, sensitivity) {
+    async filterRecipes(recipes, filterOptions, sensitivity) {
         const sensitivityFreeRecipes = recipes.filter(rec => this.#filterSensitivities(rec, sensitivity))
-        const filteredRecipes = sensitivityFreeRecipes.map(rec => this.#filterRecipe(rec, filterOptions))
-        return filteredRecipes
+        return Promise.all( sensitivityFreeRecipes.map(async rec => await this.#filterRecipe(rec, filterOptions))).then((filteredRecipes)=>{
+            return filteredRecipes
+        })
     }
 
 }

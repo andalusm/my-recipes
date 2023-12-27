@@ -13,7 +13,7 @@ class Renderer {
     }
 
     renderRecipes(recipes){
-        this.render(this.recipeContainer,this.recipeTemplate, recipes)
+        this.render(this.recipeContainer,this.recipeTemplate,{recipes: recipes, length:length})
 
     }
 

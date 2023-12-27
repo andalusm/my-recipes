@@ -32,8 +32,10 @@ router.get('/:ingredient', function (req, res) {
         IngredientFinder.getRecipe(ingredient, dairy, gluten, vegeterian)
             .then(function (response) {
                 const recipes = response.data.results
-                const filteredRecipes = RecipesController.filterRecipes(recipes, config.FILTERED_LIST, IngredientFinder.sensitivity)
-                return res.status(201).json({ recipes: filteredRecipes })
+                RecipesController.filterRecipes(recipes, config.FILTERED_LIST, IngredientFinder.sensitivity).then((filteredRecipes)=>{
+                    return res.status(201).json({ recipes: filteredRecipes })
+                })
+                
 
             })
     } catch (error) {

@@ -1,6 +1,9 @@
 const renderer = new Renderer()
 
 
+let recipes_page = []
+let length = 0
+let page = 0
 const searchIngredient = function () {
     const ingredient = ingredientInput.val()
     if (!ingredient) {
@@ -13,7 +16,10 @@ const searchIngredient = function () {
         const recipesURL = `/recipes/${ingredient}?dairyFree=${dairy}&glutenFree=${gluten}&vegeterian=${vegeterian}`
         $.get(recipesURL)
             .then((recipes) => {
-                renderer.renderRecipes(recipes)
+                console.log(recipes)
+                recipes_page = recipes.recipes
+                length = recipes_page.length
+                renderer.renderRecipes(recipes_page.slice(0,5),length)
             })
             .catch((error) => {
                 console.log(error)
@@ -26,3 +32,18 @@ recipesContainer.on("click", "img", function () {
     const ingredient = $($(this).siblings("ul").children()[0]).text()
     alert(ingredient)
 })
+
+const navigation_next = function(recipes){
+    if(recipes_page.length>((page+1)*5))
+    {
+        page++;
+        renderer.renderRecipes(recipes_page.slice(page*5,(page+1)*5),length)
+    }
+    
+}
+const navigation_prev = function(recipes){
+    if(page > 0){
+        page--;
+        renderer.renderRecipes(recipes_page.slice(page*5,(page+1)*5),length)
+    }
+}
