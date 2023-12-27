@@ -1,4 +1,3 @@
-const { error } = require('jquery');
 const config = require('./config')
 const errors = require('./errors')
 const { faker } = require('@faker-js/faker');

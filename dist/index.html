@@ -44,7 +44,7 @@
         {{#each recipes}}
             <div class="recipe" data-id="{{idMeal}}">
                 <div class="titlemoji">
-                    <b><a class="title" href="{{href}}">{{title}} </a></b>
+                    <a class="title" href="{{href}}"><b>{{title}} </a></b>
                     <div class="emoji"> {{#if gluten}}<i title="Has Gluten" class="fa-solid fa-wheat-awn"></i> {{/if}}
                     {{#if vegeterian}}<i title="Vegeterian" class="fa-solid fa-leaf"></i> {{/if}}
                     {{#if dairy}}<i title="Has dairy" class="fa-solid fa-bottle-droplet"></i> {{/if}}
@@ -60,7 +60,8 @@
                 <div><b>Chef name:</b> {{chef}}</div>
                 <div><b>Resturants:</b> {{resturants}}</div>
                 <div><b>Rating:</b> <div class="Stars" style="--rating: {{rating}};" title="Rating of this recipe is {{rating}} out of 5."></div></div>
-                <a href="mailto:?subject=Check%20out%20this%20recipe!{{title}}&body=You%20can%20see%20this%20recipe%20in%20this%20video%3A{{ingredients.[0]}}">Share this recipe</a>
+                <a class="share" href="{{title}}">Share this recipe</a>
+                <!-- <a href="mailto:?subject=Check%20out%20this%20recipe!{{title}}&body=You%20can%20see%20this%20recipe%20in%20this%20video%3A{{ingredients.[0]}}">Share this recipe</a> -->
             </div>
         {{/each}}
     </div>

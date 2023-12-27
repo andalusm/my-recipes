@@ -19,6 +19,7 @@ const searchIngredient = function () {
                 console.log(recipes)
                 recipes_page = recipes.recipes
                 length = recipes_page.length
+                page = 0
                 renderer.renderRecipes(recipes_page.slice(0,5),length)
             })
             .catch((error) => {
@@ -27,6 +28,14 @@ const searchIngredient = function () {
             })
     }
 }
+recipesContainer.on("click", ".share", function(){
+    const ahref = $(this).siblings(".titlemoji").find(".title")
+    console.log(ahref)
+    const youtube_url = ahref.attr('href').replace("?", "%3F");
+    const url = `mailto:?subject=Check%20out%20this%20recipe! ${ahref.text()}&body=You%20can%20see%20this%20recipe%20in%20this%20video%3A ${youtube_url}`
+    $(this).attr('href',url)
+})
+
 
 recipesContainer.on("click", "img", function () {
     const ingredient = $($(this).siblings("ul").children()[0]).text()
@@ -47,3 +56,5 @@ const navigation_prev = function(recipes){
         renderer.renderRecipes(recipes_page.slice(page*5,(page+1)*5),length)
     }
 }
+
+
