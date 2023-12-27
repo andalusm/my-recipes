@@ -13,7 +13,7 @@ class Renderer {
     }
 
     renderRecipes(recipes,length,page){
-        this.render(this.recipeContainer,this.recipeTemplate,{recipes: recipes, length:length, min:page*5, max: Math.min((page+1)*5,length)})
+        this.render(this.recipeContainer,this.recipeTemplate,{recipes: recipes, length:length, min:page*5, max: Math.min((page+1)*MAX_RECIPES_IN_PAGE,length)})
 
     }
 

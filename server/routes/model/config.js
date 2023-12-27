@@ -13,7 +13,6 @@ const RESTURANTS = {
     "Kafroon": ["52776", "52972"],
     "Kalamata": ["52973", "52772"]
 }
-const API_KEY = "eAWD0NLSSsbDIwfDx1Qv7eClJBfSXskS"
 const MAX_RATING = 4
 const MIN_RATING = 1
 
