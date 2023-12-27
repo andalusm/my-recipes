@@ -2,8 +2,8 @@ const renderer = new Renderer()
 
 
 let recipes_page = []
-let length = 0
 let page = 0
+let length = 0
 const searchIngredient = function () {
     const ingredient = ingredientInput.val()
     if (!ingredient) {
@@ -20,7 +20,7 @@ const searchIngredient = function () {
                 recipes_page = recipes.recipes
                 length = recipes_page.length
                 page = 0
-                renderer.renderRecipes(recipes_page.slice(0,5),length)
+                renderer.renderRecipes(recipes_page.slice(0,5),length,page)
             })
             .catch((error) => {
                 console.log(error)
@@ -46,14 +46,14 @@ const navigation_next = function(recipes){
     if(recipes_page.length>((page+1)*5))
     {
         page++;
-        renderer.renderRecipes(recipes_page.slice(page*5,(page+1)*5),length)
+        renderer.renderRecipes(recipes_page.slice(page*5,(page+1)*5),length,page)
     }
     
 }
 const navigation_prev = function(recipes){
     if(page > 0){
         page--;
-        renderer.renderRecipes(recipes_page.slice(page*5,(page+1)*5),length)
+        renderer.renderRecipes(recipes_page.slice(page*5,(page+1)*5),length,page)
     }
 }
 
