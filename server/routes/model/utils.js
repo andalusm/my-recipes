@@ -108,7 +108,7 @@ class RecipesController {
     }
 
 
-    async #filterRecipe(recipe, filterOptions) {
+    #filterRecipe(recipe, filterOptions) {
         let newRecipe = {}
         filterOptions.forEach(filterOption => {
             if (recipe[filterOption] instanceof Array) {
@@ -118,16 +118,16 @@ class RecipesController {
             else
                 newRecipe[filterOption] = recipe[filterOption]
         })
-        return await this.#addFeatures(newRecipe,recipe).then((recipe)=>{
+        return this.#addFeatures(newRecipe,recipe).then((recipe)=>{
             return newRecipe
         })
         
         
     }
 
-    async filterRecipes(recipes, filterOptions, sensitivity) {
+    filterRecipes(recipes, filterOptions, sensitivity) {
         const sensitivityFreeRecipes = recipes.filter(rec => this.#filterSensitivities(rec, sensitivity))
-        return Promise.all( sensitivityFreeRecipes.map(async rec => await this.#filterRecipe(rec, filterOptions))).then((filteredRecipes)=>{
+        return Promise.all( sensitivityFreeRecipes.map(rec => this.#filterRecipe(rec, filterOptions))).then((filteredRecipes)=>{
             return filteredRecipes
         })
     }
