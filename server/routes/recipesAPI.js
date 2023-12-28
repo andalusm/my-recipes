@@ -16,6 +16,13 @@ router.get('/:ingredient', function (req, res) {
     const dairy = req.query.dairyFree
     const gluten = req.query.glutenFree
     const vegeterian = req.query.vegeterian
+    let page = req.query.page
+    if (page !== undefined){
+        page = Number(page)
+    }
+    else{
+        page = 0
+    }
     try {
         
         RecipesController.checkIngredient(ingredient)
@@ -29,11 +36,11 @@ router.get('/:ingredient', function (req, res) {
         }
     }
     try {
-        IngredientFinder.getRecipe(ingredient, dairy, gluten, vegeterian)
+        IngredientFinder.getRecipe(ingredient, dairy, gluten, vegeterian,page)
             .then(function (response) {
                 const recipes = response.data.results
-                RecipesController.filterRecipes(recipes, config.FILTERED_LIST, IngredientFinder.sensitivity).then((filteredRecipes)=>{
-                    return res.status(201).json({ recipes: filteredRecipes })
+                RecipesController.filterRecipes(recipes, config.FILTERED_LIST, IngredientFinder.sensitivity,page).then((recipes)=>{
+                    return res.status(201).json({ recipes: recipes.filteredRecipes,recipesNum: recipes.length, maxPage:recipes.maxPage })
                 })
                 
 

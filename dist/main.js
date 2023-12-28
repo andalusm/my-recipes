@@ -1,9 +1,11 @@
 const renderer = new Renderer()
 
 
-let recipes_page = []
 let page = 0
 let length = 0
+let maxPage = 0
+let search_url = ""
+
 const searchIngredient = function () {
     const ingredient = ingredientInput.val()
     if (!ingredient) {
@@ -14,13 +16,16 @@ const searchIngredient = function () {
         const gluten = glutenCheckBox.prop('checked');
         const vegeterian = vegeterianCheckBox.prop('checked');
         const recipesURL = `/recipes/${ingredient}?dairyFree=${dairy}&glutenFree=${gluten}&vegeterian=${vegeterian}`
+        search_url = recipesURL
         $.get(recipesURL)
             .then((recipes) => {
                 console.log(recipes)
-                recipes_page = recipes.recipes
-                length = recipes_page.length
+                const recipes_page = recipes.recipes
                 page = 0
-                renderer.renderRecipes(recipes_page.slice(0,MAX_RECIPES_IN_PAGE),length,page)
+                length = recipes.recipesNum
+                maxPage = recipes.maxPage
+                const pages =arrayRange(1,maxPage,1)
+                renderer.renderRecipes(recipes_page.slice(0,MAX_RECIPES_IN_PAGE),length,page,pages)
             })
             .catch((error) => {
                 console.log(error)
@@ -43,23 +48,64 @@ recipesContainer.on("click", "img", function () {
 })
 
 const navigation_next = function(){
-    if(recipes_page.length>((page+1)*MAX_RECIPES_IN_PAGE))
+    if(maxPage > page+1)
     {
         page++;
-        renderer.renderRecipes(recipes_page.slice(page*MAX_RECIPES_IN_PAGE,(page+1)*MAX_RECIPES_IN_PAGE),length,page)
+        const url = search_url+"&page="+page
+        $.get(url)
+            .then((recipes) => {
+                console.log(recipes)
+                const recipes_page = recipes.recipes
+                const pages =arrayRange(1,maxPage,1)
+                renderer.renderRecipes(recipes_page.slice(0,MAX_RECIPES_IN_PAGE),length,page,pages)
+            })
+            .catch((error) => {
+                console.log(error)
+                alert(error.responseJSON.Error)
+            })
+        
     }
+
     
 }
 const navigation_prev = function(){
     if(page > 0){
         page--;
-        renderer.renderRecipes(recipes_page.slice(page*MAX_RECIPES_IN_PAGE,(page+1)*MAX_RECIPES_IN_PAGE),length,page)
+        const url = search_url+"&page="+page
+        $.get(url)
+            .then((recipes) => {
+                console.log(recipes)
+                const recipes_page = recipes.recipes
+                const pages =arrayRange(1,maxPage,1)
+                renderer.renderRecipes(recipes_page.slice(0,MAX_RECIPES_IN_PAGE), length ,page, pages)
+            })
+            .catch((error) => {
+                console.log(error)
+                alert(error.responseJSON.Error)
+            })
+        
     }
 }
 
 const navigation_to_page= function(page_number){
-    page = page_number
-    renderer.renderRecipes(recipes_page.slice(page*MAX_RECIPES_IN_PAGE,(page+1)*MAX_RECIPES_IN_PAGE),length,page)
+    page = Number(page_number) - 1
+    console.log(page)
+    if(page >= 0 && maxPage > page){
+        const url = search_url+"&page="+page
+        $.get(url)
+            .then((recipes) => {
+                console.log(recipes)
+                const recipes_page = recipes.recipes
+                const pages =arrayRange(1,maxPage,1)                
+                renderer.renderRecipes(recipes_page.slice(0,MAX_RECIPES_IN_PAGE), length ,page, pages)
+            })
+            .catch((error) => {
+                console.log(error)
+                alert(error.responseJSON.Error)
+            })
+        
+    }
+    
 }
 
 

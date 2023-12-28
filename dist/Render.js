@@ -12,8 +12,8 @@ class Renderer {
         container.append(newHTML)
     }
 
-    renderRecipes(recipes,length,page){
-        this.render(this.recipeContainer,this.recipeTemplate,{recipes: recipes, length:length, min:page*5, max: Math.min((page+1)*MAX_RECIPES_IN_PAGE,length)})
+    renderRecipes(recipes,length,page,pages){
+        this.render(this.recipeContainer,this.recipeTemplate,{recipes: recipes, length:length, min:page*5+1, max: Math.min((page+1)*MAX_RECIPES_IN_PAGE,length), pages})
     }
 
 }

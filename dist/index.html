@@ -36,6 +36,9 @@
     <script id="recipes-template" type="text/x-handlebars-template">
 
         <button onclick="navigation_prev()">Previous</button>
+        {{#each pages}}
+        <button onclick="navigation_to_page({{this}})">{{this}}</button>
+        {{/each}}
         
         <button onclick="navigation_next()">Next</button>
     {{#if recipes}}

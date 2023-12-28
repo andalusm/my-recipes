@@ -125,10 +125,13 @@ class RecipesController {
         
     }
 
-    filterRecipes(recipes, filterOptions, sensitivity) {
+    filterRecipes(recipes, filterOptions, sensitivity, page) {
         const sensitivityFreeRecipes = recipes.filter(rec => this.#filterSensitivities(rec, sensitivity))
-        return Promise.all( sensitivityFreeRecipes.map(rec => this.#filterRecipe(rec, filterOptions))).then((filteredRecipes)=>{
-            return filteredRecipes
+        const length = sensitivityFreeRecipes.length
+        const maxPage = Math.floor((sensitivityFreeRecipes.length)/5) +1
+        const pageSensitivityFreeRecipes = sensitivityFreeRecipes.slice(page*config.MAX_RECIPES,(page+1)*config.MAX_RECIPES)
+        return Promise.all( pageSensitivityFreeRecipes.map(rec => this.#filterRecipe(rec, filterOptions))).then((filteredRecipes)=>{
+            return {filteredRecipes, length, maxPage}
         })
     }
 

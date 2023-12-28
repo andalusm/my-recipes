@@ -7,7 +7,7 @@ class Ingredient {
         this.sensitivity = []
     }
     
-    getRecipe(ingredient,dairy,gluten,vegeterian) {
+    getRecipe(ingredient,dairy,gluten,vegeterian,page) {
         this.#fillSensitivity(dairy,gluten,vegeterian)
         const find_ingredient_url = config.INGREDIENT_URL + ingredient
         return axios.get(find_ingredient_url)
@@ -17,6 +17,7 @@ class Ingredient {
         if (sensitivity === 'true')
             this.sensitivity.push(sensitivityName)
     }
+    
     #fillSensitivity(dairy,gluten,vegeterian){
         this.sensitivity = []
         this.#addSensitivity(gluten, 'gluten')
