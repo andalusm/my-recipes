@@ -51,23 +51,5 @@ router.get('/:ingredient', function (req, res) {
     }
 
 })
-// router.post('/wonder', function (req, res) {
-//     console.log("Someone's trying to make a post request")
-//     wonders.push({ ...req.body, visited: false })
-//     res.send("Added wonder")
-// })
-// router.put('/wonder/:name', function (req, res) {
-//     let wonderName = (req.params.name).split("-")[0].trim()
-//     let wonderVisited = wonders.find(w => w.name === wonderName)
-//     wonderVisited.visited = true
-//     res.send("Updated wonder")
-// })
-
-// router.delete('/wonder/:name', function (req, res) {
-//     let wonderName = (req.params.name).split("-")[0].trim()
-//     let wonderIndex = wonders.findIndex(w => w.name === wonderName)
-//     wonders.splice(wonderIndex, 1)
-//     res.send("Deleted a wonder")
-// })
 
 module.exports = router
